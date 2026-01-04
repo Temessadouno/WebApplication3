@@ -11,7 +11,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Session (AVANT Build)
+// Session dans un cookie pour une duré de 30 jours pour stocker le panier
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromDays(30); // durée panier
@@ -24,7 +24,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// 🔥 Initialisation de la TABLE DES PERFORMANCES
+//  Initialisation de la TABLE DES PERFORMANCES à chaque chargement par l'administrateur on met les nouvelle performances dans la table des performances
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -49,7 +49,7 @@ app.UseRouting();
 
 app.UseMiddleware<PerformanceMiddleware>();
 
-//  Session (APRÈS Routing)
+//  Session 
 app.UseSession();
 
 app.UseAuthorization();

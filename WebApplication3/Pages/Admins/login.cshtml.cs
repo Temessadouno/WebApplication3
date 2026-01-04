@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication3.Models;
 
 namespace WebApplication3.Pages.Admins;
-
+//la classe qui gère la page de connexion 
 public class LoginModel : PageModel
 {
     private readonly ApplicationDbContext  _context;
@@ -46,7 +46,7 @@ public class LoginModel : PageModel
             return Page();
         }
 
-        //  Connexion r�ussie  Session
+        //  Connexion réussie  Session
         HttpContext.Session.SetInt32("AdminId", admin.Id);
         HttpContext.Session.SetString("AdminLOGIN", admin.Login);
 

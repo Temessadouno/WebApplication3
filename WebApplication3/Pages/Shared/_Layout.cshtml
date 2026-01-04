@@ -1,0 +1,183 @@
+﻿@{
+    var adminId = Context.Session.GetInt32("AdminId");
+    var AdminLOGIN = Context.Session.GetString("AdminLOGIN");
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Vente %%%</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication3.styles.css" asp-append-version="true" />
+
+    <style>
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0f172a] text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <header class="bg-[#1e293b]/80 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-slate-700/50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+
+                <a asp-page="/Index" class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:from-blue-300 hover:to-purple-400 transition-all duration-300">
+                    VENTE <span class="text-white">STORE</span>
+                </a>
+
+                <div class="hidden lg:flex flex-1 max-w-lg mx-10">
+                    <form asp-page="/Produits" method="get" class="w-full">
+                        <div class="relative w-full">
+                            <input type="text" name="search"
+                                   placeholder="Rechercher un produit, une catégorie..."
+                                   class="w-full pl-5 pr-14 py-2.5 rounded-full bg-slate-800 text-gray-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400 transition-all text-sm shadow-inner border border-slate-700" />
+                            <button type="submit" class="absolute right-1 top-1/2 transform -translate-y-1/2 px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all duration-200">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="flex items-center space-x-6">
+
+                    <a asp-page="/Index" class="hidden sm:block text-slate-300 hover:text-blue-400 transition-colors font-medium text-sm">Accueil</a>
+                    <a asp-page="/Produits" class="hidden sm:block text-slate-300 hover:text-blue-400 transition-colors font-medium text-sm">Produits</a>
+
+                    @{
+                        int cartCount = Context.Session.GetInt32("CartCount") ?? 0;
+                    }
+                    <a asp-page="/Panier" class="relative text-slate-300 hover:text-blue-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        @if (cartCount > 0)
+                        {
+                            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#1e293b]">
+                                @cartCount
+                            </span>
+                        }
+                    </a>
+
+                    @if (adminId == null)
+                    {
+                        <a asp-page="/Admins/Login"
+                           class="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-md hover:shadow-blue-500/30 hidden sm:block">
+                            Espace Admin
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="relative group">
+                            <button class="flex items-center gap-2 p-2 rounded-full bg-slate-700 hover:bg-slate-600 transition-colors focus:outline-none">
+                                <span class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white font-semibold text-xs border border-slate-600">
+                                    @(AdminLOGIN?.Substring(0, 1).ToUpper() ?? "A")
+                                </span>
+                                <span class="text-sm font-medium hidden lg:inline">@AdminLOGIN</span>
+                                <svg class="w-4 h-4 text-slate-400 hidden lg:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+
+                            <div class="absolute right-0 mt-3 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 origin-top-right">
+                                <div class="p-2 space-y-1">
+                                    <span class="block px-3 py-2 text-xs text-slate-500 border-b border-slate-700 mb-1">Connecté en tant que @AdminLOGIN</span>
+                                    <a asp-page="/Admins/Dashboard" class="flex items-center gap-2 px-3 py-2 text-slate-300 hover:bg-blue-600/20 hover:text-blue-400 rounded-md transition-colors text-sm">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                                        Dashboard
+                                    </a>
+                                    <a asp-page="/Admins/Logout" class="flex items-center gap-2 px-3 py-2 text-red-400 hover:bg-red-600/20 rounded-md transition-colors text-sm">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                                        Déconnexion
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    <button class="md:hidden text-slate-300 hover:text-blue-400 transition-colors" onclick="toggleMenu()">
+                        <svg class="w-7 h-7" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-[#1e293b] border-t border-slate-700">
+            <div class="px-4 py-4 space-y-3">
+                <form asp-page="/Produits" method="get" class="w-full mb-3">
+                    <div class="relative">
+                        <input type="text" name="search" placeholder="Rechercher..."
+                               class="w-full pl-4 pr-12 py-2 rounded-lg bg-slate-700 text-gray-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500/50 text-sm" />
+                    </div>
+                </form>
+                <a asp-page="/Index" class="block text-slate-300 hover:text-blue-400 transition-colors duration-300 py-2 border-b border-slate-800">Accueil</a>
+                <a asp-page="/Produits" class="block text-slate-300 hover:text-blue-400 transition-colors duration-300 py-2 border-b border-slate-800">Produits</a>
+                <a asp-page="/Panier" class="block text-slate-300 hover:text-blue-400 transition-colors duration-300 py-2 border-b border-slate-800">Panier (@cartCount)</a>
+
+                @if (adminId == null)
+                {
+                    <a asp-page="/Admins/Login" class="block text-center mt-3 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all">
+                        Espace Admin
+                    </a>
+                }
+                else
+                {
+                    <a asp-page="/Admins/Dashboard" class="block text-center mt-3 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium transition-all">
+                        Dashboard Admin
+                    </a>
+                }
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow  px-4 sm:px-6 lg:  w-full">
+        <div class="bg-[#0f172a]/50 backdrop-blur-sm rounded-xl   w-full">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="bg-[#1e293b]/80 backdrop-blur-md border-t border-slate-700/50 mt-10">
+        <div class="max-w-7xl mx-auto px-4 py-6 text-center text-sm">
+            <p class="text-slate-500">
+                &copy; 2025 - <span class="text-blue-400 font-semibold">VENTE STORE</span> - Tous droits réservés.
+            </p>
+            <p class="text-slate-600 text-xs mt-1">Développé avec ASP.NET Core et Tailwind CSS.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("mobileMenu");
+            const icon = document.getElementById("menu-icon");
+
+            if (menu.classList.contains("hidden")) {
+                menu.classList.remove("hidden");
+                menu.classList.add("animate-fadeIn");
+                // Changer l'icône en X ou hamburger si vous avez un autre SVG
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            } else {
+                menu.classList.add("hidden");
+                menu.classList.remove("animate-fadeIn");
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            }
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

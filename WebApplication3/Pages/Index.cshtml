@@ -1,0 +1,80 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Accueil Hardware";
+}
+
+
+
+<div class="relative mt-2  w-full flex items-center justify-center overflow-hidden ">
+    
+
+    <div class="absolute inset-0 z-0 ">
+        <div class="absolute inset-0  z-10"></div>
+        <div class="absolute inset-0  z-10"></div>
+        
+        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+            <source src="https://videocdn.cdnpk.net/videos/b5884dd3-b124-524c-8c3a-5bd6beaf852e/horizontal/previews/watermarked/small.mp4" type="video/mp4">
+        </video>
+
+    </div>
+
+    <div class="relative z-20 max-w-6xl mx-auto px-6 text-center mb-2">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] uppercase tracking-[0.3em] font-bold mb-10 animate-fade-in-up">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            Innovation & Performance
+        </div>
+
+        <h1 class="text-5xl md:text-5xl font-black text-white tracking-tighter leading-none mb-8 animate-title">
+            BIENVENUE
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600">
+                AU FUTUR.
+            </span>
+        </h1>
+
+        <p class="text-xl md:text-xl italic text-slate-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+            Équipez-vous du meilleur matériel pour le gaming et le travail créatif intensif.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="/Produits"
+               class="group relative px-10 py-5 bg-blue-600 text-white rounded-full font-black text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(37,99,235,0.3)]">
+                <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <span class="relative flex items-center gap-3">
+                    DÉCOUVRIR LA COLLECTION
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 opacity-50">
+        <span class="text-[10px] uppercase tracking-widest text-white">Scroll</span>
+        <div class="w-[1px] h-12 bg-gradient-to-b from-blue-500 to-transparent"></div>
+    </div>
+</div>
+
+
+
+<style>
+    /* Animations personnalisées */
+    @@keyframes title-glow {
+        from { transform: translateY(30px); opacity: 0; filter: blur(10px); }
+        to { transform: translateY(0); opacity: 1; filter: blur(0); }
+    }
+
+    .animate-title {
+        animation: title-glow 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .animate-fade-in-up {
+        animation: title-glow 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+        opacity: 0;
+    }
+</style>

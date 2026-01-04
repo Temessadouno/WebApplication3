@@ -1,0 +1,57 @@
+﻿@page
+@model LoginModel
+
+<div class="min-h-screen flex items-center justify-center   px-4">
+    <div class="bg-slate-800/70 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-md p-8">
+        <h1 class="text-3xl font-bold text-white text-center mb-8">Connexion</h1>
+
+        <form method="post" class="space-y-6">
+
+            <!-- Login -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z" />
+                    </svg>
+                </span>
+                <input asp-for="Login" placeholder="Login"
+                       class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all" />
+            </div>
+
+            <!-- Password -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 11c0-1.105.895-2 2-2s2 .895 2 2v1h-4v-1zM6 11V9a6 6 0 1112 0v2" />
+                    </svg>
+                </span>
+                <input asp-for="Password" type="password" placeholder="Mot de passe"
+                       class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all" />
+            </div>
+
+            <!-- Bouton -->
+            <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl transition-all">
+                Se connecter
+            </button>
+
+            <!-- Message d'erreur -->
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <p class="text-red-500 text-center font-medium mt-2">@Model.ErrorMessage</p>
+            }
+
+        </form>
+
+        <!-- Optionnel : lien mot de passe oublié -->
+        <div class="text-center mt-6">
+            <a asp-page="/Admins/ForgotPassword" class="text-blue-400 hover:underline">
+                Mot de passe oublié ?
+            </a>
+        </div>
+    </div>
+</div>

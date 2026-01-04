@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using WebApplication3.Models;
 
 namespace WebApplication3.Pages.Admins;
-
+//Classe de gestion de la page de Tableau de bord
 public class DashboardModel : PageModel
 {
     private readonly ApplicationDbContext _context;

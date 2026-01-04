@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication3.Models;
 
-namespace WebApplication3.Pages.Admins
-{
+namespace WebApplication3.Pages.Admins;
+
+//la classe de connexion d'affichage gestionProduits, elle affiche la page de gestion de produits
     public class gestionProduitsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -55,7 +56,7 @@ namespace WebApplication3.Pages.Admins
 
             if (ImageUpload == null)
             {
-                ModelState.AddModelError("ImageUpload", "Veuillez sélectionner une image.");
+                ModelState.AddModelError("ImageUpload", "Veuillez sÃ©lectionner une image.");
             }
 
             if (!ModelState.IsValid)
@@ -139,4 +140,4 @@ namespace WebApplication3.Pages.Admins
             return RedirectToPage();
         }
     }
-}
+

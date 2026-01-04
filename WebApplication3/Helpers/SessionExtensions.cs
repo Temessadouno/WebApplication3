@@ -3,6 +3,7 @@ using System.Text.Json;
 
 namespace WebApplication3.Helpers;
 
+//la classe qui permet de definir et d'obtenir une session
 public static class SessionExtensions
 {
     public static void SetObject<T>(this ISession session, string key, T value)
